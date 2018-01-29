@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <assert.h>
+
+char*  replace(char* p)
+{
+	char* ret = p;
+	int num = 0;
+	int oldlen = 0;
+	int newlen = 0;
+	char* q = p;
+	char* r;
+	assert(p != NULL);
+	while (*p != '\0')
+	{
+		if (*p == ' ')
+		{
+			num++;
+		}
+		oldlen++;
+		p++;
+	}
+	p = q;
+	newlen = oldlen + 2 * num;
+	q = p + oldlen - 1;
+	r = p + newlen - 1;
+	while (q != r)
+	{
+		if (*q == ' ')
+		{
+			*r-- = '0';
+			*r-- = '2';
+			*r-- = '%';
+		}
+		else
+		{
+			*r = *q;
+			r--;
+		}
+		q--;
+	}
+	return ret;
+}
+
+int main()
+{
+	char p[200] = "we are happy.";
+	printf("原字符串是：%s\n", p);
+	printf("替换后的字符串是：%s\n", replace(p));
+	return 0;
+}
